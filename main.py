@@ -8,9 +8,16 @@ from master import Master
 
 def print_hi(name):
     master = Master()
-    print(master.connect(0x7C3, 0x12ED))
-    # bus = canbus.CANBUS()
-    # bus.can_send()
+    bus = canbus.CANBUS()
+    bus.can_send(master.connect(0x7C3, 0x12ED))
+    while 1:
+        message = bus.can_recv()
+        if message is None:
+            continue
+        print(message)
+        a = message.id
+        dat = message.data
+
 
 
 # Press the green button in the gutter to run the script.
