@@ -29,10 +29,18 @@ class CAN_MESSAGE():
 
 
 class CANBUS:
-    def __init__(self):
+    def __init__(self, j2534_device_name=""):
         is_windows = sys.platform.startswith('win')
         if is_windows:
-            self.bus = J2534Connection()
+            from connection.j2534_detect import J2534RegistryDetector
+            detector = J2534RegistryDetector()
+            devices = detector.list_devices_short()
+            if devices.get(j2534_device_name):
+                dll_name = devices[j2534_device_name]
+            else:
+                dll_name = list(devices.values())[0]
+
+            self.bus = J2534Connection(dll_name)
             self.bus.open()
             pass
         else:

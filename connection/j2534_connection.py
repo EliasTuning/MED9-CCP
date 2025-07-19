@@ -37,13 +37,16 @@ class J2534Connection():
     """
 
     def __init__(
-            self
+            self, dll_name: str = ""
     ):
 
-        j2534DLL = (
-            "C:/Program Files (x86)/OpenECU/OpenPort 2.0/drivers/openport 2.0/op20pt32.dll"
-        )
+        if dll_name == "":
+            raise Exception('DLL not defined!')
 
+        j2534DLL = (
+            #"C:/Program Files (x86)/OpenECU/OpenPort 2.0/drivers/openport 2.0/op20pt32.dll"
+            dll_name
+        )
 
         debug = False
         self.logger = logging.getLogger()
