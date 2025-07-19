@@ -7,6 +7,14 @@ import time
 from connection import canbus
 from master import Master
 
+from connection.j2534_detect import J2534RegistryDetector
+
+detector = J2534RegistryDetector()
+devices = detector.list_devices()
+for device in devices:
+    print(device)
+
+
 
 def print_hi(name):
     master = Master()
