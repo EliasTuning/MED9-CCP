@@ -23,7 +23,9 @@ class CAN_MESSAGE():
             raise TypeError(f"data must be bytes or list of integers, got {type(data).__name__}")
 
     def __str__(self):
-        return "Can Message " + str(self.id) + " " + self.data.hex()
+        dlc = len(self.data)
+        data_str = ' '.join(f'{b:02X}' for b in self.data)
+        return f'{self.id:03X} [{dlc}] {data_str}'
 
 
 class CANBUS:
