@@ -1,36 +1,32 @@
-# This is a sample Python script.
-
-# Press Alt+Umschalt+X to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-import time
+# CCP (CAN Calibration Protocol) Example
+# Usage example for the ccp_lib library
 
 from connection import canbus
-from master import Master
+from ccp_lib import CCP
 
 
-
-
-
-
-
-def print_hi(name):
-    master = Master()
+def main():
+    # Initialize CAN bus
     bus = canbus.CANBUS()
-    bus.can_send(master.connect(0x7C3, 0x12ED))
-    while 1:
-        message = bus.can_recv()
-        if message is None:
-            continue
-        ign_can_ids = [0x280, 0x540, 0x380, 0x488, 0x284, 0x48A, 0x58C, 0x288, 0x48C, 0x480, 0x588, 0x580]
-        if message.id in ign_can_ids:
-            continue
-        print(message)
 
-        # time.sleep(1)
+    # Create CCP instance with TX and RX CAN IDs
+    ccp = CCP(can=bus, tx=0x7C3, rx=0x7C4)
+
+    # Connect to ECU with station address
+    ccp.connect(station_address=0x12ED)
+
+    # Read memory from address 0x0 (default 4 bytes)
+    data = ccp.read_memory(0x7FC76C, 0x1)
+    print(f"Memory at 0x0: {data.hex()}")
+
+    # Read more bytes at a specific address
+    # data = ccp.read_memory(0x1000, size=16)
+    # print(f"Memory at 0x1000: {data.hex()}")
+
+    # Disconnect when done
+    ccp.disconnect()
+    bus.disconnect()
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()

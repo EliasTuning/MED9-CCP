@@ -28,7 +28,7 @@ import enum
 from pprint import pprint
 import struct
 
-import ccp
+from ccp_lib import protocol as ccp
 from connection.canbus import CAN_MESSAGE
 
 MTA0 = 0
