@@ -59,10 +59,20 @@ class CCP:
         self.can = can
         self.tx = tx
         self.rx = rx
-        self.timeout = timeout
+        self._timeout = timeout
         self.ctr = 0x00
         self._connected = False
         self._station_address = None
+
+    @property
+    def timeout(self) -> float:
+        """Get/set the response timeout in seconds."""
+        return self._timeout
+
+    @timeout.setter
+    def timeout(self, value: float):
+        """Set the response timeout in seconds."""
+        self._timeout = value
 
     def _increment_ctr(self):
         """Increment the command counter (wraps at 255)."""
