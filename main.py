@@ -12,9 +12,9 @@ def main():
     # Create CCP instance with TX and RX CAN IDs
     # Timeout can be set in constructor (default: 1.0 seconds)
     # MED91
-    ccp = CCP(can=bus, tx=0x7C3, rx=0x7C4)
+    #ccp = CCP(can=bus, tx=0x7C3, rx=0x7C4)
     # MED92
-    #ccp = CCP(can=bus, tx=0x7BC, rx=0x7BD, timeout=2.0)
+    ccp = CCP(can=bus, tx=0x7BC, rx=0x7BD, timeout=2.0)
     
     # Or configure timeout after creation
     # ccp.timeout = 5.0  # Set to 5 seconds
