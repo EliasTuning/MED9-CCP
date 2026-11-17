@@ -37,7 +37,7 @@ class J2534Connection():
     """
 
     def __init__(
-            self, dll_name: str = ""
+            self, dll_name: str = "", baudrate: int = 500000
     ):
 
         if dll_name == "":
@@ -54,9 +54,8 @@ class J2534Connection():
         # Set up a J2534 interface using the DLL provided
         self.interface = J2534(windll=j2534DLL)
 
-        # Set the protocol to ISO15765, Baud rate to 500000
         self.protocol = Protocol_ID.CAN
-        self.baudrate = 500000
+        self.baudrate = baudrate
 
         # Open the interface (connect to the DLL)
         result, self.devID = self.interface.PassThruOpen()

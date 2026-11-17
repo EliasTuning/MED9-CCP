@@ -2,16 +2,11 @@
 
 # Press Alt+Umschalt+X to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-import time
-
-from connection import canbus
-from connection.canbus import CAN_MESSAGE
-from master import Master
+from config import open_can
 
 
 def print_hi(name):
-    master = Master()
-    bus = canbus.CANBUS()
+    bus = open_can()
     while 1:
         #bus.can_send(CAN_MESSAGE(0x613, [0x0]))
         message = bus.can_recv()
